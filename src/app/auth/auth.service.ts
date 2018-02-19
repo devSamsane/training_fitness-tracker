@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private afauth: AngularFireAuth,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private uiService: UIService
   ) {}
 
   initAuthListener() {
@@ -36,26 +38,32 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
+    this.uiService.loadingStateChange.next(true);
     this.afauth.auth.createUserWithEmailAndPassword(
       authData.email,
       authData.password
     ).then(result => {
+      this.uiService.loadingStateChange.next(false);
       console.log(result);
     })
     .catch(error => {
-      console.log(error);
+      this.uiService.loadingStateChange.next(false);
+      this.uiService.showSnackbar(error.message, null, 3000);
     });
   }
 
   login(authData: AuthData) {
+    this.uiService.loadingStateChange.next(true);
     this.afauth.auth.signInWithEmailAndPassword(
       authData.email,
       authData.password
     ).then(result => {
+      this.uiService.loadingStateChange.next(false);
       console.log(result);
     })
     .catch(error => {
-      console.log(error);
+      this.uiService.loadingStateChange.next(false);
+      this.uiService.showSnackbar(error.message, null, 3000);
     });
   }
 
