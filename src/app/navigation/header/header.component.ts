@@ -1,5 +1,4 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -21,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isAuth$ = this.store.select(fromRoot.getIsAuth);
+    console.log('isAuth: ', this.isAuth$);
     // this.authSubscription = this.authService.authChange.subscribe(authStatus => {
     //   this.isAuth = authStatus;
     // });

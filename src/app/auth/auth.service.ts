@@ -30,9 +30,9 @@ export class AuthService {
       user => {
         if (user) {
           this.store.dispatch(new AUTH.SetAuthenticated());
+          this.router.navigate(['/training']);
           // this.isAuthenticated = true;
           // this.authChange.next(true);
-          this.router.navigate(['/training']);
         } else {
           this.trainingService.cancelSubscriptions();
           this.store.dispatch(new AUTH.SetUnauthenticated());
