@@ -16,7 +16,7 @@ import { TrainingService } from './training/training.service';
 import { UIService } from './shared/ui.service';
 import { environment } from '../environments/environment';
 
-import { appReducer } from './app.reducer';
+import { reducers } from './app.reducer';
 
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -38,7 +38,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     AuthModule,
     AngularFirestoreModule,
-    StoreModule.forRoot({ui: appReducer})
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     AuthService,
